@@ -41,6 +41,10 @@ public class Order {
 	@Getter
 	private LocalDateTime createdAt = LocalDateTime.now();
 	
+	@Column(name = "updated_at")
+	@Getter
+	@Setter
+	private LocalDateTime updatedAt = LocalDateTime.now();
 	
 	public Order(User user, List<Product> products) {
 		this.user = user;
