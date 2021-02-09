@@ -1,4 +1,4 @@
-package br.com.ufsm.orderapi.config.handler;
+package br.com.ufsm.order.api.config.handler;
 
 import java.util.ArrayList;
 import java.util.List;

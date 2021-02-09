@@ -1,4 +1,4 @@
-package br.com.ufsm.orderapi.controller.form;
+package br.com.ufsm.order.api.controller.form;
 
 import java.util.LinkedList;
 import javax.validation.constraints.Email;

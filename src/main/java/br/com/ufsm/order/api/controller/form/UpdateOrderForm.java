@@ -1,4 +1,4 @@
-package br.com.ufsm.orderapi.controller.form;
+package br.com.ufsm.order.api.controller.form;
 
 import javax.validation.constraints.NotNull;
 

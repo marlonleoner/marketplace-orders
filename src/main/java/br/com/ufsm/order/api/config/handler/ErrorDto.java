@@ -1,4 +1,4 @@
-package br.com.ufsm.orderapi.config.handler;
+package br.com.ufsm.order.api.config.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package br.com.ufsm.orderapi.model;
+package br.com.ufsm.order.api.model;
 
 import java.util.Objects;
 

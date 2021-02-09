@@ -1,4 +1,4 @@
-package br.com.ufsm.orderapi.controller;
+package br.com.ufsm.order.api.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.ufsm.orderapi.controller.dto.OrderDto;
-import br.com.ufsm.orderapi.controller.form.UpdateOrderForm;
-import br.com.ufsm.orderapi.model.Order;
-import br.com.ufsm.orderapi.model.User;
-import br.com.ufsm.orderapi.repository.OrderRepository;
+
+import br.com.ufsm.order.api.controller.dto.OrderDto;
+import br.com.ufsm.order.api.controller.form.UpdateOrderForm;
+import br.com.ufsm.order.api.model.Order;
+import br.com.ufsm.order.api.model.User;
+import br.com.ufsm.order.api.repository.OrderRepository;
 
 @RestController
 @RequestMapping("/pedidos")

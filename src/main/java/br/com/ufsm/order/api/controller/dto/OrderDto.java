@@ -1,11 +1,11 @@
-package br.com.ufsm.orderapi.controller.dto;
+package br.com.ufsm.order.api.controller.dto;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import br.com.ufsm.orderapi.model.Order;
-import br.com.ufsm.orderapi.model.Product;
-import br.com.ufsm.orderapi.model.User;
+import br.com.ufsm.order.api.model.Order;
+import br.com.ufsm.order.api.model.Product;
+import br.com.ufsm.order.api.model.User;
 import lombok.Data;
 
 @Data
