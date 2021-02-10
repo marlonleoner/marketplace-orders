@@ -5,9 +5,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.ufsm</groupId>
 	<artifactId>pedido-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>pedido-api</name>
-	<description>CRUDE para cadastro de pedidos - avaliação final</description>
+	<description>CRUD para cadastro de pedidos - avaliação final</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -121,7 +121,6 @@
 			<artifactId>flyway-core</artifactId>
 		</dependency>
 
-
 	</dependencies>
 
 	<dependencyManagement>
@@ -141,11 +140,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-
-					</excludes>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
