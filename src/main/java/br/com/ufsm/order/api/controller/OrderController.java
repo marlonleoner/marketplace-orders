@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ufsm.order.api.controller.dto.OrderDto;
 import br.com.ufsm.order.api.controller.form.UpdateOrderForm;
-import services.OrderService;
+import br.com.ufsm.order.api.services.OrderService;
 
 @RestController
 @RequestMapping("/orders")

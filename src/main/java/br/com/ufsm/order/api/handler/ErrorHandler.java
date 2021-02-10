@@ -1,4 +1,4 @@
-package br.com.ufsm.order.api.config.handler;
+package br.com.ufsm.order.api.handler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import exceptions.ObjectAlreadyExistsException;
-import exceptions.ObjectNotFoundException;
+import br.com.ufsm.order.api.exceptions.ObjectAlreadyExistsException;
+import br.com.ufsm.order.api.exceptions.ObjectNotFoundException;
+import br.com.ufsm.order.api.model.Error;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -39,14 +40,6 @@ public class ErrorHandler {
 	public Error handleObjectAlreadyExistsException(ObjectAlreadyExistsException ex) {
 		return new Error("ObjectAlreadyExists", 400, ex.getMessage());
 	}
-	
-	/*
-	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(UnavailableProductException.class)
-	public List<UnavailableProductError> handleUnavailableProductException(UnavailableProductException exception) {
-		return exception.getErrors();
-	}
-	*/
 
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)

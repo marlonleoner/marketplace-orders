@@ -1,4 +1,4 @@
-package exceptions;
+package br.com.ufsm.order.api.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException {
 

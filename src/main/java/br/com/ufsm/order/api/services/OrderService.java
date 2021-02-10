@@ -1,4 +1,4 @@
-package services;
+package br.com.ufsm.order.api.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import br.com.ufsm.order.api.controller.form.UpdateOrderForm;
+import br.com.ufsm.order.api.exceptions.ObjectNotFoundException;
 import br.com.ufsm.order.api.model.Order;
 import br.com.ufsm.order.api.repository.OrderRepository;
-import exceptions.ObjectNotFoundException;
 
 @Service
 public class OrderService {
