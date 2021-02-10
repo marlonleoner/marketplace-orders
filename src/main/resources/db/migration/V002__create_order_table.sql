@@ -1,8 +1,6 @@
 CREATE TABLE `orders` (
 	id				BIGINT NOT NULL,
 	user_id			BIGINT,
-	product_id		BIGINT,
-	amount			INTEGER,
 	total_price		DOUBLE,
 	created_at 		DATETIME,
 	updated_at 		DATETIME,
