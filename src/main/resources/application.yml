@@ -1,12 +1,23 @@
 server:
-  port: 8888
+  port : 8092
 spring:
+  application:
+    name: "@project.name@"
+  flyway:
+    url: jdbc:mysql://localhost:3306/mysql
+    user: root
+    password: docker
+    schemas: marketplace-order
+    locations: classpath:db/migration
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/pedido_api?useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/marketplace-order
     username: root
-    
+    password: docker
   jpa:
-    hibernate:
-      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5Dialect
     show-sql: true
+    hibernate:
+      ddl-auto: validate
+jwt:
+  secret: "bc5986ebbf4dde661f229fd527ad82f4"
+  expiration: 86400000
