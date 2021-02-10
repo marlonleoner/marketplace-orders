@@ -1,22 +1,22 @@
 package br.com.ufsm.order.api.clients;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.com.ufsm.order.api.model.Product;
+import br.com.ufsm.order.api.controller.form.ItemCart;
+import feign.Headers;
 
-@FeignClient(name="ProdutoClient", url="http://localhost:8889/produtos")
+@FeignClient(name = "ProdutoClient", url = "http://localhost:8091/products")
 public interface ProdutClient {
 
-	public boolean auditable = true;
+	@RequestMapping(value = "/available", method = RequestMethod.POST)
+	@Headers("Content-Type: " + MediaType.APPLICATION_JSON_VALUE)
+	List<ProductResponse> verify(@RequestBody HashMap<String, List<ItemCart>> formProducts);
 
-	@GetMapping(value = "/{name}")
-    Product findOne(@PathVariable String name);
-	
-	@PutMapping(value = "/updatedisponibility/{id}")
-	void atualizar(@PathVariable Long id, @RequestBody Integer disponibility);
-	
 }
