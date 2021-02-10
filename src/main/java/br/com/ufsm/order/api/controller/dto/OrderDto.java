@@ -15,11 +15,13 @@ public class OrderDto {
 
 	private Double totalPrice;
 
-	private UserDto user;
+	private Long user;
 
-	public OrderDto(Order pedido) {
-		this.id = pedido.getId();
-		this.totalPrice = pedido.getTotalPrice();
+	public OrderDto(Order order) {
+		this.id = order.getId();
+		this.totalPrice = order.getTotalPrice();
+		this.products = order.getProducts().stream().map(ProductDto::new).collect(Collectors.toList());
+		this.user = order.getUserId();
 	}
 
 	public static List<OrderDto> convert(List<Order> orders) {

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ItemCart {
+public class ProductRequest {
 
 	private Long id;
 

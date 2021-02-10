@@ -1,13 +1,17 @@
 package br.com.ufsm.order.api.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -31,14 +35,10 @@ public class Order {
 	@Getter
 	private Long userId;
 
-	@Column(name = "product_id")
+	@OneToMany(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "order_id")
 	@Getter
-	private Long productId;
-
-	@Column(name = "amount")
-	@Getter
-	@Setter
-	private Integer amount;
+	private List<ItemOrder> products;
 
 	@Column(name = "total_price")
 	@Getter
@@ -54,8 +54,16 @@ public class Order {
 	@Setter
 	private LocalDateTime updatedAt = LocalDateTime.now();
 
-	public Order(Long userId, Long productId, Integer amount) {
-		
+	public Order(Long userId, List<ItemOrder> products) {
+		this.userId = userId;
+		this.products = products;
+		this.totalPrice = 0.0;
+	}
+
+	public void calculateTotalPrice() {
+		for (ItemOrder io : products) {
+			this.totalPrice += io.getTotalPrice();
+		}
 	}
 
 	@Override
@@ -66,6 +74,18 @@ public class Order {
 			return false;
 		Order order = (Order) o;
 		return Objects.equals(this.id, order.id);
+	}
+
+	@Override
+	public String toString() {
+		String str = "Order [" + this.id + "]\n";
+		for (ItemOrder i : products) {
+			str += "\tItem[" + i.getProductId() + "] Amount: " + i.getAmount() + " // TotalPrice: " + i.getTotalPrice()
+					+ "\n";
+		}
+		str += "TotalPrice: " + this.totalPrice;
+
+		return str;
 	}
 
 }

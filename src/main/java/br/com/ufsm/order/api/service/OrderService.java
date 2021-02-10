@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ufsm.order.api.clients.ProdutClient;
-import br.com.ufsm.order.api.controller.form.ItemCart;
+import br.com.ufsm.order.api.controller.form.ProductRequest;
+import br.com.ufsm.order.api.controller.form.ProductResponse;
 import br.com.ufsm.order.api.exceptions.ObjectNotFoundException;
+import br.com.ufsm.order.api.model.ItemOrder;
 import br.com.ufsm.order.api.model.Order;
 import br.com.ufsm.order.api.model.User;
 import br.com.ufsm.order.api.repository.OrderRepository;
@@ -50,27 +53,28 @@ public class OrderService {
 	public Order create() {
 		User user = authService.getAuthenticatedUser();
 
-		List<ItemCart> items = verifyCart(user);
-		for (ItemCart i : items) {
-			Order order = new Order();
+		List<ItemOrder> products = verifyCart(user).stream().map(ItemOrder::new).collect(Collectors.toList());
 
-			orderRepository.save(order);
-		}
+		Order order = new Order(user.getId(), products);
+		order.calculateTotalPrice();
 
-		return null;
+		orderRepository.save(order);
+
+		cartService.clear();
+
+		return order;
 	}
 
-	private List<ItemCart> verifyCart(User user) {
-		HashMap<String, List<ItemCart>> map = new HashMap<String, List<ItemCart>>();
+	private List<ProductResponse> verifyCart(User user) {
+		HashMap<String, List<ProductRequest>> map = new HashMap<String, List<ProductRequest>>();
 
-		List<ItemCart> items = new ArrayList<>();
-		cartService.findByUser(user.getId()).forEach(c -> items.add(new ItemCart(c.getProductId(), c.getAmount())));
+		List<ProductRequest> items = new ArrayList<>();
+		cartService.findByUser(user.getId())
+				.forEach(c -> items.add(new ProductRequest(c.getProductId(), c.getAmount())));
 
 		map.put("products", items);
 
-		produtClient.verify(map);
-
-		return items;
+		return produtClient.verify(map);
 	}
 
 }

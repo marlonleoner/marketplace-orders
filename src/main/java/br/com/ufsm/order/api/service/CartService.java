@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ufsm.order.api.clients.ProdutClient;
-import br.com.ufsm.order.api.controller.form.ItemCart;
+import br.com.ufsm.order.api.controller.form.ProductRequest;
 import br.com.ufsm.order.api.model.Cart;
 import br.com.ufsm.order.api.model.User;
 import br.com.ufsm.order.api.repository.CartRepository;
@@ -37,7 +37,7 @@ public class CartService {
 		return cartRepository.findByUserId(user.getId());
 	}
 
-	public Cart createOrUpdate(ItemCart form) {
+	public Cart createOrUpdate(ProductRequest form) {
 		User user = authService.getAuthenticatedUser();
 
 		verifyDisponibility(form);
@@ -58,8 +58,8 @@ public class CartService {
 		return cart;
 	}
 
-	private void verifyDisponibility(ItemCart form) {
-		HashMap<String, List<ItemCart>> map = new HashMap<String, List<ItemCart>>();
+	private void verifyDisponibility(ProductRequest form) {
+		HashMap<String, List<ProductRequest>> map = new HashMap<String, List<ProductRequest>>();
 		map.put("products", Arrays.asList(form));
 		produtClient.verify(map);
 	}

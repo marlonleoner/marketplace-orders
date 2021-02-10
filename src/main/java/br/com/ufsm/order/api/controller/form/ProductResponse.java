@@ -1,4 +1,4 @@
-package br.com.ufsm.order.api.clients;
+package br.com.ufsm.order.api.controller.form;
 
 import lombok.Data;
 

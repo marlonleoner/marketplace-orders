@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ufsm.order.api.controller.dto.CartDto;
-import br.com.ufsm.order.api.controller.form.ItemCart;
+import br.com.ufsm.order.api.controller.form.ProductRequest;
 import br.com.ufsm.order.api.service.CartService;
 
 @RestController
@@ -33,7 +33,7 @@ public class CartController {
 
 	@PostMapping("/update")
 	@Transactional
-	public CartDto createOrUpdate(@RequestBody ItemCart form) {
+	public CartDto createOrUpdate(@RequestBody ProductRequest form) {
 		return new CartDto(cartService.createOrUpdate(form));
 	}
 
