@@ -1,6 +1,6 @@
 package br.com.ufsm.order.api.model;
 
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,51 +8,64 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.TableGenerator;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
 public class Cart {
-	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_carrinho")
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "CART_ID")
+	@TableGenerator(name = "CART_ID", table = "GENERATOR_TABLE", pkColumnName = "CART_KEY", valueColumnName = "CART_KEY_NEXT", pkColumnValue = "cart", allocationSize = 1)
+	@Column(name = "id")
 	@Getter
-	private Long idCarrinho;
-	
-	@Column(name = "usuario")
+	private Long id;
+
+	@Column(name = "user_id")
 	@Getter
-	private User usuario;
-	
-	@Column(name = "produtos")
+	private Long userId;
+
+	@Column(name = "product_id")
 	@Getter
-	private List<Product> produtos;
-	
-	public Cart(User usuario, List<Product> produtos) {
-		this.usuario = usuario;
-		this.produtos = produtos;
+	private Long productId;
+
+	@Column(name = "amount")
+	@Getter
+	@Setter
+	private Integer amount;
+
+	@Column(name = "created_at")
+	@Getter
+	private LocalDateTime createdAt = LocalDateTime.now();
+
+	@Column(name = "updated_at")
+	@Getter
+	@Setter
+	private LocalDateTime updatedAt = LocalDateTime.now();
+
+	public Cart(Long userId, Long productId, Integer amount) {
+		this.userId = userId;
+		this.productId = productId;
+		this.amount = amount;
 	}
-	
-	public void AddProduto(Product p) {
-		this.produtos.add(p);
-	}
-	
-	public void RemoveProduto(Product p) {
-		this.produtos.remove(p);
-	}
-	
-	//TODO verificar usuario e disponibilidades
-	public Order FinalizarCompra() {
-		return new Order(this.usuario, this.produtos);
-	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Cart)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof Cart))
+			return false;
 		Cart carinho = (Cart) o;
-		return Objects.equals(this.idCarrinho, carinho.idCarrinho);
+		return Objects.equals(this.id, carinho.id);
 	}
-	
+
+	@Override
+	public String toString() {
+		return " > [Carrinho] Produto: " + this.productId + " // Quantidade: " + this.amount;
+	}
+
 }
