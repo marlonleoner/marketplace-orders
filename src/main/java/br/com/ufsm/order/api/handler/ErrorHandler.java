@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import br.com.ufsm.order.api.exceptions.ObjectAlreadyExistsException;
 import br.com.ufsm.order.api.exceptions.ObjectNotFoundException;
 import br.com.ufsm.order.api.model.Error;
+import feign.FeignException;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -29,16 +30,22 @@ public class ErrorHandler {
 		return new Error("InternalError", 500, ex.getClass().getName() + ": " + ex.getMessage());
 	}
 
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(FeignException.class)
+	public String handleFeignException(FeignException ex) {
+		return ex.contentUTF8();
+	}
+
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public Error handleObjectNotFoundException(ObjectNotFoundException ex) {
-		return new Error("ObjectNotFound", 404, ex.getMessage());
+		return new Error("ObjectNotFound", HttpStatus.NOT_FOUND.value(), ex.getMessage());
 	}
 
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(ObjectAlreadyExistsException.class)
 	public Error handleObjectAlreadyExistsException(ObjectAlreadyExistsException ex) {
-		return new Error("ObjectAlreadyExists", 400, ex.getMessage());
+		return new Error("ObjectAlreadyExists", HttpStatus.BAD_REQUEST.value(), ex.getMessage());
 	}
 
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)

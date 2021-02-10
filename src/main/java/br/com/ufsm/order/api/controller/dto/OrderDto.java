@@ -4,27 +4,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.ufsm.order.api.model.Order;
-import br.com.ufsm.order.api.model.Product;
-import br.com.ufsm.order.api.model.User;
 import lombok.Data;
 
 @Data
 public class OrderDto {
 
 	private Long id;
+
+	private List<ProductDto> products;
+
 	private Double totalPrice;
-	private User user;
-	private List<Product> products;
-	
+
+	private UserDto user;
+
 	public OrderDto(Order pedido) {
-		this.id = pedido.getIdOrder();
+		this.id = pedido.getId();
 		this.totalPrice = pedido.getTotalPrice();
-		this.user = pedido.getUser();
-		this.products = pedido.getProducts();
 	}
 
-	public static List<OrderDto> converter(List<Order> pedidos) {
-		return pedidos.stream().map(OrderDto::new).collect(Collectors.toList());
+	public static List<OrderDto> convert(List<Order> orders) {
+		return orders.stream().map(OrderDto::new).collect(Collectors.toList());
 	}
 
 }
