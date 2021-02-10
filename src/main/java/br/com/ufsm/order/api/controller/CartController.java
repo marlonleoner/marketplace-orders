@@ -20,7 +20,7 @@ import br.com.ufsm.order.api.controller.form.ProductRequest;
 import br.com.ufsm.order.api.service.CartService;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/carrinho")
 public class CartController {
 
 	@Autowired
@@ -31,20 +31,20 @@ public class CartController {
 		return cartService.get().stream().map(CartDto::new).collect(Collectors.toList());
 	}
 
-	@PostMapping("/update")
+	@PostMapping("/alterar")
 	@Transactional
 	public CartDto createOrUpdate(@RequestBody ProductRequest form) {
 		return new CartDto(cartService.createOrUpdate(form));
 	}
 
-	@PostMapping("/clear")
+	@PostMapping("/limpar")
 	@Transactional
 	public ResponseEntity<?> clear() {
 		cartService.clear();
 		return ResponseEntity.ok().build();
 	}
 
-	@DeleteMapping("/remove/{id}")
+	@DeleteMapping("/remover/{id}")
 	@Transactional
 	public ResponseEntity<?> remove(@PathVariable Long id) {
 		cartService.remove(id);

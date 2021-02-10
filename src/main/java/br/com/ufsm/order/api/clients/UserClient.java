@@ -1,6 +1,7 @@
 package br.com.ufsm.order.api.clients;
 
 import java.util.LinkedList;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
