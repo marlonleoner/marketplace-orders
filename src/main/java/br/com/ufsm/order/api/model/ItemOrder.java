@@ -54,4 +54,9 @@ public class ItemOrder {
 		this.totalPrice = productPrice * amount;
 	}
 
+	@Override
+	public String toString() {
+		return "ItemOrder[" + this.id + "] Amount: " + this.amount;
+	}
+
 }

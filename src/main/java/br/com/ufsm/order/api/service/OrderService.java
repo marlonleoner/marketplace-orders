@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.ufsm.order.api.clients.ProdutClient;
+import br.com.ufsm.order.api.controller.form.DecreaseAmount;
 import br.com.ufsm.order.api.controller.form.ProductRequest;
 import br.com.ufsm.order.api.controller.form.ProductResponse;
 import br.com.ufsm.order.api.exceptions.ObjectNotFoundException;
@@ -59,6 +60,11 @@ public class OrderService {
 		order.calculateTotalPrice();
 
 		orderRepository.save(order);
+
+		for (ItemOrder item : products) {
+			System.out.println(item.toString());
+			produtClient.decrement(item.getProductId(), new DecreaseAmount(item.getAmount()));
+		}
 
 		cartService.clear();
 
